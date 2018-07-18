@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>一杯酒'杯莫停</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="icon" href="images/head/head.jpg">
+	<link type="text/css" rel="stylesheet" href="css/main.css">
+</head>
+
+<body align="center">
+	<h1 align="center">杯莫停的博客</a></h1>
+	<h4 align="center">这个人比较懒，博客更新的慢也不要在意</h4>
+	<h4 align="center">编程是一条漫长的道路，这条路上因你更加精彩</h4>
+	<h4 align="center"><a href="https://juejin.im/user/5a30f03df265da43195643b0/posts" target="t">我的掘金</a>,<a href="https://github.com/sysworker" target="t">我的Github</a></h4>
+	<h4 align="center">在下简书上的文章已全部转移掘金</h4>
+	<hr>
+	<div class="test_place">Loading</div>
+
+	<hr>
+	<ul align="left">
+		<li>大神专栏</li>
+
+		<div class="dashen">
+			<table align="center" border="0.5">
+				<thead>
+					<tr>
+						<th>大神</th>
+						<th>博客</th>
+						<th>github</th>
+						<th>掘金</th>
+						<th>简书</th>
+					</tr>
+				</thead>
+				<tr><td>Loading</td><td>Loading</td><td>Loading</td><td>Loading</td></tr>
+			</table>
+		</div>
+
+		</li>
+		<li>'菜鸟'专栏
+			<div class="cainiao">
+			<table align="center" border="0.5">
+				<thead>
+					<tr>
+						<th>'菜鸟'</th>
+						<th>博客</th>
+						<th>github</th>
+						<th>掘金</th>
+						<th>简书</th>
+					</tr>
+				</thead>
+				<tr><td>Loading</td><td>Loading</td><td>Loading</td><td>Loading</td></tr>
+			</table>
+			</div>
+		</li>
+	</ul>
+	<hr>
+	<ul>
+		<li align='left'>iOS水群交流 Q群: 563172444</li>
+		<li align='left'>iOS技术水群 Q群: 384236574</li>
+		<hr>
+		<li align='left'>有事儿联系 <a href="Mailto:sysworker@163.com" target="t">在下的邮箱</a> </li>
+		<hr>
+		<li align='left'><a href="https://www.jianshu.com/u/1cc12a8bd940" target="t">辣鸡简书</a></li>
+	</ul>
+	<hr>
+	<!--加载常用库的代码-->
+	<script>
+		var xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = function () {
+			if (xhr.readyState === 4 && xhr.status >= 200 && xhr.status < 300) {
+				var objRes = JSON.parse(xhr.responseText);
+
+				var tempStr ='<ul align=\"left\">';
+				for (tempDic in objRes) {
+					var title = objRes[tempDic].title;
+					var href = objRes[tempDic].href;
+					var desc = objRes[tempDic].desc;
+					var temp = "<a href=\""+href+"\" target=\"t\">"+title+"</a>";
+					tempStr += "<li>"
+					tempStr += temp
+					tempStr += '<br>'
+					tempStr += desc
+					tempStr += '<br><br></li>'
+				}
+				tempStr += '</ul>'
+				document.querySelector('.test_place').innerHTML = tempStr;
+			} else {
+				document.querySelector('.test_place').innerHTML = 'Loading';
+			}
+		};
+		xhr.open('GET', 'source/index_block.json');
+		xhr.send('123');
+
+		function changeToHtml(typeTitle,objRes) {
+			var tempStr ="";
+			var emptyString = "<td>暂无</td>";
+			tempStr += "<table align=\"center\" border=\"0.5\">";
+			tempStr += "<thead><tr><th>"+typeTitle+"</th><th>博客</th><th>github</th><th>掘金</th><th>简书</th></tr></thead>";
+			// 加载大神专栏代码
+			for (tempDic in objRes) {
+				var name = objRes[tempDic].name;
+				var blog = objRes[tempDic].blog;
+				var github = objRes[tempDic].github;
+				var juejin = objRes[tempDic].juejin;
+				var jianshu = objRes[tempDic].jianshu;
+				var title = "Jump";
+				var temp = "<tr><td>"+name+"</td>";
+				if (blog) {
+					temp += "<td><a href=\""+blog+"\" target=\"t\">"+title+"</a></td>";
+				} else {
+					temp += emptyString;
+				}
+				if (github) {
+					temp += "<td><a href=\""+github+"\" target=\"t\">"+title+"</a></td>";
+				} else {
+					temp += emptyString;
+				}
+				if (juejin) {
+					temp += "<td><a href=\""+juejin+"\" target=\"t\">"+title+"</a></td>";
+				} else {
+					temp += emptyString;
+				}
+				if (jianshu) {
+					temp += "<td><a href=\""+jianshu+"\" target=\"t\">"+title+"</a></td>";
+				} else {
+					temp += emptyString;
+				}
+				temp += "</tr>";
+				console.log(temp);
+				tempStr += temp;
+			}
+			tempStr += "</table>";
+			return tempStr;
+		}
+
+		var tabdataRequest = new XMLHttpRequest();
+		tabdataRequest.onreadystatechange = function () {
+			if (tabdataRequest.readyState === 4 && tabdataRequest.status >= 200 && tabdataRequest.status < 300) {
+				var dict = JSON.parse(tabdataRequest.responseText);
+				var objRes = dict.dashen;
+				console.log(objRes);
+				console.log(tabdataRequest.responseText);
+				document.querySelector('.dashen').innerHTML = changeToHtml("大神",dict.dashen);
+				document.querySelector('.cainiao').innerHTML = changeToHtml("\"菜鸟\"",dict.cainiao);
+			} else {
+				document.querySelector('.dashen').innerHTML = "加载失败";
+				document.querySelector('.cainiao').innerHTML = "加载失败";
+			}
+		};
+		tabdataRequest.open('GET', 'source/index_blog.json');
+		tabdataRequest.send('123');
+
+	</script>
+	<!--umeng网页统计代码-->
+	<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1260488245'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1260488245%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));</script>
+	<!-- Global Site Tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-106786945-1"></script>
+	<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments)};
+  	gtag('js', new Date());
+  	gtag('config', 'UA-106786945-1');
+	</script>
+</body>
+
+</html>
