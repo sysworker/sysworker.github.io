@@ -1,6 +1,13 @@
 {
     "dashen":[
         {
+            "name": "彩虹（工头）",
+            "blog": "http://devsnow.net",
+            "github": "https://github.com/DevSonw",
+            "jianshu": null,
+            "juejin": null
+        },
+        {
             "name": "bang哥",
             "blog": "http://blog.cnbang.net",
             "github": "https://github.com/bang590",
@@ -83,13 +90,6 @@
             "name": "霍尔",
             "blog": "http://linkdream.xyz",
             "github": null,
-            "jianshu": null,
-            "juejin": null
-        },
-        {
-            "name": "彩虹（工头）",
-            "blog": "http://devsnow.net",
-            "github": "https://github.com/DevSonw",
             "jianshu": null,
             "juejin": null
         },
